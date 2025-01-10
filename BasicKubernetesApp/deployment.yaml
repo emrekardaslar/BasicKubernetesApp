@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-kubernetes-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: basic-kubernetes-app
+  template:
+    metadata:
+      labels:
+        app: basic-kubernetes-app
+    spec:
+      containers:
+      - name: basic-kubernetes-app
+        image: emrekardaslar/basic-kubernetes-app:latest
+        ports:
+        - containerPort: 5000
