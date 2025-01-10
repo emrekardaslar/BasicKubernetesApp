@@ -119,7 +119,32 @@ argocd app get basic-kubernetes-app
 
 ---
 
-### **6. Delete an Application**
+### **6. Update the Application Image to Latest**
+To update the application image to the latest version without modifying the `deployment.yaml`, follow these steps:
+
+1. **Build and Push the Latest Image**:
+   ```bash
+   docker build -t <your-dockerhub-username>/basic-kubernetes-app:latest .
+   docker push <your-dockerhub-username>/basic-kubernetes-app:latest
+   ```
+
+2. **Restart the Deployment to Pull the Latest Image**:
+   ```bash
+   kubectl rollout restart deployment/<deployment-name> -n <namespace>
+   ```
+   Example:
+   ```bash
+   kubectl rollout restart deployment/basic-kubernetes-app -n default
+   ```
+
+3. **Sync the Application in Argo CD**:
+   ```bash
+   argocd app sync <app-name>
+   ```
+
+---
+
+### **7. Delete an Application**
 To delete an application and its resources:
 
 ```bash
@@ -133,7 +158,7 @@ argocd app delete basic-kubernetes-app
 
 ---
 
-### **7. Update an Application**
+### **8. Update an Application**
 To update your application:
 1. Make changes to the manifests in your Git repository.
 2. Commit and push the changes.
