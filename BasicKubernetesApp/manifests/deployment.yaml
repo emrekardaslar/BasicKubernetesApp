@@ -15,5 +15,6 @@ spec:
       containers:
       - name: basic-kubernetes-app
         image: emrekardaslar/basic-kubernetes-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
