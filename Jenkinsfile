@@ -37,10 +37,11 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                script {
-                    withCredentials([file(credentialsId: KUBECONFIG_FILE, variable: 'KUBECONFIG')]) {
+                withCredentials([file(credentialsId: KUBECONFIG_FILE, variable: 'KUBECONFIG_BASE64')]) {
+                    script {
                         sh """
-                        export KUBECONFIG=$KUBECONFIG
+                        echo $KUBECONFIG_BASE64 | base64 -d > /tmp/kubeconfig
+                        export KUBECONFIG=/tmp/kubeconfig
                         kubectl set image deployment/basic-kubernetes-app basic-kubernetes-app=${DOCKER_IMAGE} -n default
                         kubectl rollout restart deployment/basic-kubernetes-app -n default
                         """
