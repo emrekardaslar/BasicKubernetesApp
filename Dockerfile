@@ -7,8 +7,8 @@ EXPOSE 5000
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "BasicKubernetesApp.csproj"
-RUN dotnet publish "BasicKubernetesApp.csproj" -c Release -o /app/publish
+RUN dotnet restore "./BasicKubernetesApp/BasicKubernetesApp.csproj"
+RUN dotnet publish "./BasicKubernetesApp/BasicKubernetesApp.csproj" -c Release -o /app/publish
 
 # Use the base image to host the published app
 FROM base AS final
