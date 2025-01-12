@@ -17,7 +17,10 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    sh """
+                        service docker start
+                        docker build -t ${DOCKER_IMAGE} .
+                    """
                 }
             }
         }
